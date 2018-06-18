@@ -1517,6 +1517,10 @@ int filemap_fault(struct vm_area_struct *vma, struct vm_fault *vmf)
 	int ret = 0;
 
 	size = (i_size_read(inode) + PAGE_CACHE_SIZE - 1) >> PAGE_CACHE_SHIFT;
+
+	if (!strcmp(current->comm, "a.out"))
+		printk(KERN_CRIT "%s, %X\n", current->comm,vmf->virtual_address);
+
 	if (offset >= size)
 		return VM_FAULT_SIGBUS;
 
